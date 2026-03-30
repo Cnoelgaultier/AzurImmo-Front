@@ -10,6 +10,7 @@ import HomePage from './HomePage'
 import BatimentTable from "./BatimentTable";
 import AppartementTable from "./AppartementTable";
 import InterventionTable from "./InterventionTable.tsx";
+import LocatairesBatimentPage from './LocatairesBatimentPage';
 
 const queryClient = new QueryClient()
 
@@ -27,6 +28,7 @@ createRoot(document.getElementById('root')!).render(
                             <Route path="/batiments" element={<BatimentTable />} />
                             <Route path="/appartements" element={<AppartementTable />} />
                             <Route path="/interventions" element={<InterventionTable />} />
+                            <Route path="/batiments/:id/locataires" element={<LocatairesBatimentPage />} />
                         </Routes>
                     </main>
                 </div>

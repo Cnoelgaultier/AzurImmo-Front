@@ -58,6 +58,7 @@ const BatimentTable = () => {
                         <th className="px-6 py-4 border-b border-gray-800">ID</th>
                         <th className="px-6 py-4 border-b border-gray-800">Adresse</th>
                         <th className="px-6 py-4 border-b border-gray-800">Ville</th>
+                        {/* On ajoute text-center ici pour s'aligner sur les boutons de TableRow */}
                         <th className="px-6 py-4 border-b border-gray-800 text-center">Actions</th>
                     </tr>
                     </thead>
