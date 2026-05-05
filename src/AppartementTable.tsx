@@ -71,7 +71,7 @@ const AppartementTable = () => {
                     </thead>
                     <tbody className="divide-y divide-gray-800">
                     {appartements && appartements.length > 0 ? (
-                        appartements.map((app) => (
+                        appartements.map((app: any ) => (
                             <AppartementRow
                                 key={app.numero ?? app.id}
                                 app={app}
