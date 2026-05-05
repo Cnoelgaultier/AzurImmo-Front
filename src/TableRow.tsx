@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 interface TableRowProps {
     id?: number;
     adresse?: string;
@@ -41,6 +43,13 @@ const TableRow = ({
 
             <td className="px-6 py-4 text-center">
                 <div className="flex justify-center gap-4">
+                    {!isApp && id && (
+                        <Link
+                            to={`/batiments/${id}/locataires`}
+                            className="text-emerald-500 hover:text-emerald-400 font-semibold transition">
+                            Voir Locataires
+                        </Link>
+                    )}
                     <button className="text-blue-500 hover:text-blue-300 font-semibold transition">Éditer</button>
                     <button className="text-red-500 hover:text-red-300 font-semibold transition">Supprimer</button>
                 </div>
