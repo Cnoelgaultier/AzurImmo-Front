@@ -1,0 +1,284 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : 127.0.0.1:3307
+-- Généré le : mar. 05 mai 2026 à 12:12
+-- Version du serveur : 11.3.2-MariaDB
+-- Version de PHP : 8.2.18
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données : `azurimmo`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `appartement`
+--
+
+DROP TABLE IF EXISTS `appartement`;
+CREATE TABLE IF NOT EXISTS `appartement` (
+  `numero` bigint(20) NOT NULL AUTO_INCREMENT,
+  `description` varchar(255) DEFAULT NULL,
+  `nombre` bigint(20) DEFAULT NULL,
+  `surface` bigint(20) DEFAULT NULL,
+  `batiment_id` bigint(20) DEFAULT NULL,
+  `contrat_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`numero`),
+  KEY `FK5kn64l7l2m25kkryy4n50ikyb` (`batiment_id`),
+  KEY `FKf4mo9fwg0tlpxk1jad7ak4uuu` (`contrat_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5009 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Déchargement des données de la table `appartement`
+--
+
+INSERT INTO `appartement` (`numero`, `description`, `nombre`, `surface`, `batiment_id`, `contrat_id`) VALUES
+(45, 't3 vue mer ', 2, 70, 2, 2),
+(101, 'Studio lumineux centre-ville', 1, 25, 1, 1),
+(102, 'T2 avec balcon', 2, 45, 1, NULL),
+(201, 'Grand T3 rénové', 3, 75, 2, 2),
+(301, 'Duplex de standing', 4, 110, 3, NULL),
+(302, 'zzer', 4, 85, 2, 1),
+(303, 'Superbe T2 lumineux', 2, 45, 1, 1),
+(304, 'Grand T3 avec balcon', 3, 65, 1, 2),
+(5001, 'Grand T3 lumineux vue cour', 3, 65, 5001, 5001),
+(5002, 'Charmant T2 refait à neuf', 2, 45, 5001, 5002),
+(5003, 'Studio sous les toits', 1, 20, 5001, NULL),
+(5004, 'T2 avec balcon vue mer', 2, 50, 5002, 5003),
+(5005, 'Superbe T4 traversant', 4, 95, 5002, 5004),
+(5006, 'Loft industriel', 3, 110, 5003, 5005),
+(5007, 'T2 proche métro', 2, 40, 5003, 5006),
+(5008, 'Chambre de bonne', 1, 12, 5003, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `batiment`
+--
+
+DROP TABLE IF EXISTS `batiment`;
+CREATE TABLE IF NOT EXISTS `batiment` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `adresse` varchar(255) DEFAULT NULL,
+  `ville` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5004 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Déchargement des données de la table `batiment`
+--
+
+INSERT INTO `batiment` (`id`, `adresse`, `ville`) VALUES
+(1, '12 Rue de la Paix', 'Paris'),
+(2, '45 Avenue Jean Jaurès', 'Lyon'),
+(3, '8 Impasse des Lilas', 'Marseille'),
+(4, 'string', 'string'),
+(5, '12 Avenue des Développeurs', 'Paris'),
+(101, '15 Rue de la République', 'Lyon'),
+(102, '42 Promenade des Anglais', 'Nice'),
+(103, '8 Boulevard Haussmann', 'Paris'),
+(5001, '15 Rue de la République', 'Lyon'),
+(5002, '42 Promenade des Anglais', 'Nice'),
+(5003, '8 Boulevard Haussmann', 'Paris');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `contrat`
+--
+
+DROP TABLE IF EXISTS `contrat`;
+CREATE TABLE IF NOT EXISTS `contrat` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `date_debut` date DEFAULT NULL,
+  `date_fin` date DEFAULT NULL,
+  `statut` varchar(255) DEFAULT NULL,
+  `type_contrat` varchar(255) DEFAULT NULL,
+  `id_loyer` bigint(20) DEFAULT NULL,
+  `locataire_id` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKmjcn2x7gjsw6pf12qtvvtt0xw` (`id_loyer`),
+  KEY `FKp7hols6tlsatgb3ve32kbn5sv` (`locataire_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5007 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Déchargement des données de la table `contrat`
+--
+
+INSERT INTO `contrat` (`id`, `date_debut`, `date_fin`, `statut`, `type_contrat`, `id_loyer`, `locataire_id`) VALUES
+(1, '2023-01-01', '2024-01-01', 'Actif', 'Bail d\'habitation', 1, 5),
+(2, '2023-06-15', '2025-06-15', 'Actif', 'Bail commercial', 2, 5),
+(3, '2022-09-01', '2023-09-01', 'Terminé', 'Bail étudiant', 3, 1),
+(4, '2024-01-01', '2025-01-01', 'En cours', 'Bail Classique', NULL, 1),
+(5, '2024-03-15', '2025-03-15', 'En cours', 'Bail Meublé', NULL, 2),
+(101, '2023-01-01', '2026-01-01', 'En cours', 'Bail Classique', NULL, 101),
+(102, '2023-06-15', '2024-06-15', 'En cours', 'Bail Meublé', NULL, 102),
+(103, '2023-09-01', '2024-06-30', 'En cours', 'Bail Étudiant', NULL, 103),
+(104, '2020-03-01', '2029-03-01', 'En cours', 'Bail Classique', NULL, 104),
+(105, '2021-11-01', '2030-11-01', 'En cours', 'Bail Professionnel', NULL, 105),
+(106, '2024-01-10', '2025-01-10', 'En cours', 'Bail Meublé', NULL, 106),
+(5001, '2023-01-01', '2026-01-01', 'En cours', 'Bail Classique', NULL, 5001),
+(5002, '2023-06-15', '2024-06-15', 'En cours', 'Bail Meublé', NULL, 5002),
+(5003, '2023-09-01', '2024-06-30', 'En cours', 'Bail Étudiant', NULL, 5003),
+(5004, '2020-03-01', '2029-03-01', 'En cours', 'Bail Classique', NULL, 5004),
+(5005, '2021-11-01', '2030-11-01', 'En cours', 'Bail Professionnel', NULL, 5005),
+(5006, '2024-01-10', '2025-01-10', 'En cours', 'Bail Meublé', NULL, 5006);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `intervention`
+--
+
+DROP TABLE IF EXISTS `intervention`;
+CREATE TABLE IF NOT EXISTS `intervention` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `date` date DEFAULT NULL,
+  `description` varchar(255) DEFAULT NULL,
+  `id_appartement` bigint(20) DEFAULT NULL,
+  `id_type_intervention` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKdxue587w5depal8u0y7ssmt3y` (`id_appartement`),
+  KEY `FK41jji4hp3to07uteban0bt4kb` (`id_type_intervention`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Déchargement des données de la table `intervention`
+--
+
+INSERT INTO `intervention` (`id`, `date`, `description`, `id_appartement`, `id_type_intervention`) VALUES
+(1, '2023-11-10', 'Fuite sous évier cuisine', 101, 1),
+(2, '2023-11-12', 'Changement tableau électrique', 201, 2),
+(3, '2023-11-15', 'Remplacement serrure porte entrée', 301, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `locataire`
+--
+
+DROP TABLE IF EXISTS `locataire`;
+CREATE TABLE IF NOT EXISTS `locataire` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `date_naissance` date DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `nom` varchar(255) DEFAULT NULL,
+  `prenom` varchar(255) DEFAULT NULL,
+  `profession` varchar(255) DEFAULT NULL,
+  `tel` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5007 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Déchargement des données de la table `locataire`
+--
+
+INSERT INTO `locataire` (`id`, `date_naissance`, `email`, `nom`, `prenom`, `profession`, `tel`) VALUES
+(1, '1990-05-15', 'jean.dupont@email.com', 'Dupont', 'Jean', 'Ingénieur', 601020304),
+(2, '1985-08-22', 'marie.curie@email.com', 'Curie', 'Marie', 'Chercheuse', 611223344),
+(3, '1995-12-01', 'lucas.martin@email.com', 'Martin', 'Lucas', 'Étudiant', 788990011),
+(4, '1990-05-15', 'ada@exemple.com', 'Lovelace', 'Ada', 'Développeuse', 612345678),
+(5, '1985-08-22', 'alan@exemple.com', 'Turing', 'Alan', 'Data Scientist', 698765432),
+(101, '1985-04-12', 'jean.dupont@email.com', 'Dupont', 'Jean', 'Ingénieur', 611223344),
+(102, '1992-08-25', 'sophie.m@email.com', 'Martin', 'Sophie', 'Designer', 655443322),
+(103, '1998-11-03', 'lucas.b@email.com', 'Bernard', 'Lucas', 'Étudiant', 699887766),
+(104, '1980-02-15', 'marie.dubois@email.com', 'Dubois', 'Marie', 'Médecin', 612345678),
+(105, '1975-06-30', 'thomas.l@email.com', 'Leroy', 'Thomas', 'Artisan', 698765432),
+(106, '1995-09-18', 'camille.m@email.com', 'Moreau', 'Camille', 'Développeuse', 611111111),
+(5001, '1985-04-12', 'jean.dupont@email.com', 'Dupont', 'Jean', 'Ingénieur', 611223344),
+(5002, '1992-08-25', 'sophie.m@email.com', 'Martin', 'Sophie', 'Designer', 655443322),
+(5003, '1998-11-03', 'lucas.b@email.com', 'Bernard', 'Lucas', 'Étudiant', 699887766),
+(5004, '1980-02-15', 'marie.dubois@email.com', 'Dubois', 'Marie', 'Médecin', 612345678),
+(5005, '1975-06-30', 'thomas.l@email.com', 'Leroy', 'Thomas', 'Artisan', 698765432),
+(5006, '1995-09-18', 'camille.m@email.com', 'Moreau', 'Camille', 'Développeuse', 611111111);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `loyer`
+--
+
+DROP TABLE IF EXISTS `loyer`;
+CREATE TABLE IF NOT EXISTS `loyer` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `date_paiement` date DEFAULT NULL,
+  `mode_paiement` varchar(255) DEFAULT NULL,
+  `mois` varchar(255) DEFAULT NULL,
+  `somme_total` varchar(255) DEFAULT NULL,
+  `status_paiement` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Déchargement des données de la table `loyer`
+--
+
+INSERT INTO `loyer` (`id`, `date_paiement`, `mode_paiement`, `mois`, `somme_total`, `status_paiement`) VALUES
+(1, '2023-10-05', 'Virement', 'Octobre 2023', '650', 'Payé'),
+(2, '2023-11-05', 'Carte Bancaire', 'Novembre 2023', '650', 'Payé'),
+(3, '2023-10-02', 'Virement', 'Octobre 2023', '900', 'En attente');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `type_intervention`
+--
+
+DROP TABLE IF EXISTS `type_intervention`;
+CREATE TABLE IF NOT EXISTS `type_intervention` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Déchargement des données de la table `type_intervention`
+--
+
+INSERT INTO `type_intervention` (`id`, `libelle`) VALUES
+(1, 'Plomberie'),
+(2, 'Électricité'),
+(3, 'Serrurerie'),
+(4, 'Peinture');
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `appartement`
+--
+ALTER TABLE `appartement`
+  ADD CONSTRAINT `FK5kn64l7l2m25kkryy4n50ikyb` FOREIGN KEY (`batiment_id`) REFERENCES `batiment` (`id`),
+  ADD CONSTRAINT `FKf4mo9fwg0tlpxk1jad7ak4uuu` FOREIGN KEY (`contrat_id`) REFERENCES `contrat` (`id`);
+
+--
+-- Contraintes pour la table `contrat`
+--
+ALTER TABLE `contrat`
+  ADD CONSTRAINT `FKmjcn2x7gjsw6pf12qtvvtt0xw` FOREIGN KEY (`id_loyer`) REFERENCES `loyer` (`id`),
+  ADD CONSTRAINT `FKp7hols6tlsatgb3ve32kbn5sv` FOREIGN KEY (`locataire_id`) REFERENCES `locataire` (`id`);
+
+--
+-- Contraintes pour la table `intervention`
+--
+ALTER TABLE `intervention`
+  ADD CONSTRAINT `FK41jji4hp3to07uteban0bt4kb` FOREIGN KEY (`id_type_intervention`) REFERENCES `type_intervention` (`id`),
+  ADD CONSTRAINT `FKdxue587w5depal8u0y7ssmt3y` FOREIGN KEY (`id_appartement`) REFERENCES `appartement` (`numero`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
